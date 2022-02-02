@@ -11,7 +11,7 @@ return(
                         <p>Welcome, kindly login with your credentials to use the app</p>
                         <input className="form-control" type="text" id="name" name="name" placeholder='Email' />
                         <input className="form-control" type="password" id="password" name="password" placeholder='Password' />
-                        <button class="btn btn-success form-control" type="button">SIGN IN</button>
+                        <button className="btn btn-success form-control" type="button">SIGN IN</button>
                     </div>
                 </div>
                 <div className="col-6">
