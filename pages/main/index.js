@@ -1,6 +1,7 @@
+
 import React from 'react'
 import { BaseLayout } from '../../component/common/ui';
-BaseLayout
+
 
 export default function Home() {
   return (
@@ -9,3 +10,6 @@ export default function Home() {
 }
 
 Home.Layout = BaseLayout;
+
+
+
