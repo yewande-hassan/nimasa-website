@@ -1,15 +1,10 @@
-
 import React from 'react'
 import { BaseLayout } from '../../component/common/ui';
 
 
-export default function Home() {
+export default function Vessel() {
   return (
-    <div>index</div>
+    <div>vessel</div>
   )
 }
-
-Home.Layout = BaseLayout;
-
-
-
+Vessel.Layout = BaseLayout;
