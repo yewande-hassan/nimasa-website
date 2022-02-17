@@ -1,0 +1,40 @@
+.bg{
+    background: #fff;
+    border: 1px solid #DCDCDC;
+    width: 100%;
+    padding-top: 0!important;
+}
+.nimasaWidth{
+    width: 15vw;
+}
+.name{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    color: #049D55;
+    margin-top:30px;
+    font-family: Poppins;
+}
+.link{
+    text-decoration: none;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: norma;
+    font-size: 16px;
+    line-height: 24px;
+    color: #272727;
+}
+.icon{
+    margin-right: 20px;
+}
+.nav{
+    height: 100vh;
+    width: 100%;
+}
+@media (max-width: 600px) {
+   .bg{
+     border: none;
+   }
+  }

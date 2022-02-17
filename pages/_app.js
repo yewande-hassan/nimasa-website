@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import '../styles/Home.module.css';
 import'../styles/styles.css';
 
+
 function MyApp({ Component, pageProps }) {
 
   const Layout = Component.Layout || EmptyLayout;
