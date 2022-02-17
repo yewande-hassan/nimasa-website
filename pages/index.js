@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import  {Logo}  from '../component/common/ui/common';
 const Login = ()=>{
 return(
     <>
@@ -8,7 +9,7 @@ return(
           width:'100%'
         }}>
                 <div className="col-lg-6  col-md-12  col-sm-12">
-                    <img src='images/nimasa-logo.png' alt='nimasa-logo' />
+                <Logo height={100} width={100} />
                     <Formik
                     initialValues={{
                         email: '',
