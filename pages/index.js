@@ -2,8 +2,11 @@ import { Formik } from 'formik';
 const Login = ()=>{
 return(
     <>
-        <section className="container-fluid">
-            <main className="row align-items-start">
+        <section className="container-fluid" >
+            <main className="row align-items-start" style={{
+          height:'100%',
+          width:'100%'
+        }}>
                 <div className="col-lg-6  col-md-12  col-sm-12">
                     <img src='images/nimasa-logo.png' alt='nimasa-logo' />
                     <Formik
