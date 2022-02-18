@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseLayout } from '../../component/common/ui';
+import { BaseLayout } from '../../../component/common/ui';
 
 
 export default function Vessel() {
