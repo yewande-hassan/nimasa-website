@@ -1,0 +1,75 @@
+.header{
+font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 36px;
+color: #000000;
+
+}
+.wrapp{
+    border-bottom:1px solid #DCDCDC;
+}
+.btn{
+background: #DA4100;
+border: 1px solid #DA4100;
+border-radius: 5px;
+font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+color: #FFFFFF;
+}
+
+.paragraph{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+color: #000000;
+}
+.paragraph1{
+font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+}
+.h6{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 27px;
+color: #000000;
+
+}
+.section1{
+    border-right:1px solid #DCDCDC;  
+}
+.contain{
+    margin-top: 10px;
+}
+.transac{
+    font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+}
+.row{
+    background: #FFFFFF;
+    border-bottom: 0.5px solid #DCDCDC;
+}
+.column{
+    font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+
+}

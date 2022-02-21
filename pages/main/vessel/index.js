@@ -32,7 +32,7 @@ export default function Vessel() {
         </div>
 
       </div >
-      <div className={` ${styles.wrap}`}>
+      <div>
         <div className={`d-flex justify-content-between p-3 ${styles.head}`}>
         <h6>Vessel Name</h6>
         <h6>Country</h6>

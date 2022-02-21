@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import  {Logo}  from '../component/common/ui/common';
+import styles from '../styles/Signin.module.css';
 
 const Login = ()=>{
 return(
@@ -58,8 +59,8 @@ return(
 
                     }) => (
                         <form onSubmit={handleSubmit} className="d-grid gap-4 col-4 mx-auto mt-5">
-                            <h3>Sign In</h3>
-                            <p>Welcome, kindly login with your credentials to use the app</p>
+                            <h3 className={`${styles.h3}`}>Sign In</h3>
+                            <p className={`${styles.p}`}>Welcome, kindly login with your credentials to use the app</p>
 
                             <input
                                 id="email"
