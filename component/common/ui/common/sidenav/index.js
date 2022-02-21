@@ -9,6 +9,7 @@ export default function SideNav() {
               <div className="d-flex flex-row m-4">
               
                <Logo height={100} width={100} />
+      
               </div>
               <div className="d-flex  align-items-baseline  flex-row m-4">
                 <div style={{
