@@ -10,15 +10,15 @@ export default function BaseLayout( {children}) {
 
         
         <>
-        <div className="d-flex flex-row bd-highlight mb-3" style={
-         {
-            height:"100vh"
-         }
-        }>
-  <div className=""> <SideNav /></div>
-  <div className={`flex-grow-1 ${styles.marginLeft}`}>   {children}</div>
- 
-</div>
+            <div className="d-flex flex-row bd-highlight mb-3" style={
+                {
+                    height: "100vh"
+                }
+            }>
+                <div className=""> <SideNav /></div>
+                <div className={`flex-grow-1 ${styles.marginLeft}`}>   {children}</div>
+
+            </div>
         
                
          

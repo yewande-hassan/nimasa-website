@@ -1,7 +1,7 @@
 import Head from "next/head";
-// import '../styles/globals.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
-// import '../styles/Home.module.css';
+
 import'../styles/styles.css';
 
 

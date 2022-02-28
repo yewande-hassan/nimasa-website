@@ -1,18 +1,18 @@
 import styles from "../../../../../styles/vesselDetails.module.css";
 export const Transaction =({column}) =>{
     return (
-        <div className={styles.row}>
-       <div className={`d-flex justify-content-between my-2 ${styles.column}`}>
+        <div>
+       <tr className={`d-flex justify-content-between my-3 ${styles.column}`}>
           {column.map((cols, index) => (
-            <p
+            <td
               key={index}
              
             >
               <span>{cols.col}</span>
-            </p>
+            </td>
           ))}
         
-      </div>
+      </tr>
         </div>
     )
 };

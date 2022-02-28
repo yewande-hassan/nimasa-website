@@ -1,6 +1,5 @@
 .header{
 font-family: Poppins;
-font-style: normal;
 font-weight: 500;
 font-size: 24px;
 line-height: 36px;
@@ -13,17 +12,16 @@ color: #000000;
 .btn{
 background: #DA4100;
 border: 1px solid #DA4100;
-border-radius: 5px;
+border-radius: 19.5px;
 font-family: Poppins;
-font-style: normal;
 font-weight: 500;
 font-size: 14px;
+padding: 7px 30px;
 color: #FFFFFF;
 }
 
 .paragraph{
-    font-family: Poppins;
-font-style: normal;
+font-family: Poppins;
 font-weight: 300;
 font-size: 12px;
 line-height: 18px;
@@ -31,15 +29,13 @@ color: #000000;
 }
 .paragraph1{
 font-family: Poppins;
-font-style: normal;
-font-weight: normal;
+font-weight: 400;
 font-size: 14px;
 line-height: 21px;
 color: #000000;
 }
-.h6{
-    font-family: Poppins;
-font-style: normal;
+.heading{
+ font-family: Poppins;
 font-weight: 500;
 font-size: 18px;
 line-height: 27px;
@@ -52,24 +48,59 @@ color: #000000;
 .contain{
     margin-top: 10px;
 }
-.transac{
-    font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 21px;
-color: #000000;
-}
-.row{
-    background: #FFFFFF;
-    border-bottom: 0.5px solid #DCDCDC;
-}
+
 .column{
-    font-family: Poppins;
-font-style: normal;
+font-family: Poppins;
 font-weight: normal;
 font-size: 14px;
 line-height: 21px;
 color: #000000;
+border-bottom: 0.5px solid #DCDCDC;
 
+}
+.tbody{
+    font-family: Poppins;
+
+   font-weight: normal;
+   font-size: 14px;
+   line-height: 21px;
+   color: #000000;
+   background-color: #FFFFFF;
+   }
+   .bodycol{
+    font-family: Poppins;
+    padding-left: 20px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFFFF; 
+    padding:10px;
+  
+   
+   }
+   .thead{     
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-transform: capitalize;
+    color: #000000;
+    
+   }
+   .bodyrows{
+    border-bottom: 1px solid #DCDCDC;
+  
+}
+   
+.link{
+    text-decoration: none;
+   
+}
+.parades{
+    font-family: Poppins;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: right;
+    color: #000000; 
 }

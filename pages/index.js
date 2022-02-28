@@ -1,10 +1,14 @@
 import { Formik } from 'formik';
 import  {Logo}  from '../component/common/ui/common';
 import styles from '../styles/Signin.module.css';
+import Head from 'next/head'
 
 const Login = ()=>{
 return(
     <>
+    <Head>
+        <title>Nimasa Website</title>
+    </Head>
         <section className="container-fluid" >
             <main className="row align-items-start" style={{
           height:'100%',
