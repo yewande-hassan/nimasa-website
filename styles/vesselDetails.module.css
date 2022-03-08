@@ -1,14 +1,15 @@
+
 .header{
 font-family: Poppins;
 font-weight: 500;
 font-size: 24px;
 line-height: 36px;
 color: #000000;
+}
+.wrapp {
+  border-bottom: 1px solid #dcdcdc;
+}
 
-}
-.wrapp{
-    border-bottom:1px solid #DCDCDC;
-}
 .btn{
 background: #DA4100;
 border: 1px solid #DA4100;
@@ -42,12 +43,13 @@ line-height: 27px;
 color: #000000;
 
 }
-.section1{
-    border-right:1px solid #DCDCDC;  
+.section1 {
+  border-right: 1px solid #dcdcdc;
 }
-.contain{
-    margin-top: 10px;
+.contain {
+  margin-top: 10px;
 }
+
 
 .column{
 font-family: Poppins;
@@ -56,6 +58,26 @@ font-size: 14px;
 line-height: 21px;
 color: #000000;
 border-bottom: 0.5px solid #DCDCDC;
+}
+.transac {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+.row {
+  background: #ffffff;
+  border-bottom: 0.5px solid #dcdcdc;
+}
+.column {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
 
 }
 .tbody{

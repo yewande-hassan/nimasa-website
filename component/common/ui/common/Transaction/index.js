@@ -1,4 +1,5 @@
 import styles from "../../../../../styles/vesselDetails.module.css";
+
 export const Transaction =({column}) =>{
     return (
         <div>
@@ -16,3 +17,4 @@ export const Transaction =({column}) =>{
         </div>
     )
 };
+

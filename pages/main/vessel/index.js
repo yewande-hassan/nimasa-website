@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 import Link from 'next/link'
@@ -10,10 +11,10 @@ import Select from '../../../component/common/ui/common/Select';
 
 
 
-
 export default function Vessel({transaction}) {
   return (
     <>
+
       <div className={`d-flex flex-row justify-content-between mt-3 py-3 ${styles.header}`}>
         <h3 className='start-5 mx-3'>Vessel</h3>
         <div>
@@ -70,5 +71,6 @@ export default function Vessel({transaction}) {
       </table>
     </>
   )
+
 }
 Vessel.Layout = BaseLayout;
