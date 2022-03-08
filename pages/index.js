@@ -1,28 +1,30 @@
-import { Formik } from "formik";
-import { Logo } from "../component/common/ui/common";
-import styles from "../styles/Signin.module.css";
-import { useRouter } from "next/router";
-const Login = () => {
-  const router = useRouter();
-  return (
+
+import { Formik } from 'formik';
+import  {Logo}  from '../component/common/ui/common';
+import styles from '../styles/Signin.module.css';
+import Head from 'next/head'
+
+const Login = ()=>{
+return(
     <>
-      <section className="container-fluid">
-        <main
-          className="row align-items-start"
-          style={{
-            height: "100%",
-            width: "100%",
-          }}
-        >
-          <div className="col-lg-6  col-md-12  col-sm-12">
-            <Logo height={100} width={100} />
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              validate={(values) => {
-                const errors = {};
+    <Head>
+        <title>Nimasa Website</title>
+    </Head>
+        <section className="container-fluid" >
+            <main className="row align-items-start" style={{
+          height:'100%',
+          width:'100%'
+        }}>
+                <div className="col-lg-6  col-md-12  col-sm-12">
+                <Logo height={100} width={100} />
+                    <Formik
+                    initialValues={{
+                        email: '',
+                        password: '',
+                    }}
+                    validate={values => {
+                        const errors = {};
+
 
                 if (!values.email) {
                   errors.email = "Incorrect Email";

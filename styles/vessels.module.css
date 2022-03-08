@@ -24,13 +24,21 @@
   border-bottom: 1px solid #dcdcdc;
 }
 
-.input {
-  background: #f3f3f3;
-  border: 0.5px solid #aaaaaa;
-  box-sizing: border-box;
-  border-radius: 6px;
-  width: 30%;
-  padding: 10px 40px;
+
+.input{
+background: #F3F3F3;
+border: 0.5px solid #AAAAAA;
+box-sizing: border-box;
+border-radius: 6px;
+width:30%;
+padding: 10px 40px;
+font-family: Poppins;
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+color: #444748;
+
 }
 .div {
   position: relative;
@@ -46,14 +54,80 @@
 .bold {
   font-weight: 700;
 }
-.row {
-  background: #ffffff;
-  border-bottom: 0.5px solid #dcdcdc;
+
+.row{
+    border-bottom: 0.5px solid #DCDCDC;
 }
-/* .wrap{
-    position: relative;
-} */
-.head {
-  background: #f3f3f3;
-  border-bottom: 1px solid #dcdcdc;
+.row1{
+    background: #F3F3F3;
+}
+
+.head{
+    background: #F3F3F3;
+    border-bottom:1px solid #DCDCDC;
+    
+
+}
+.tbody{
+ font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+background-color: #FFFFFF;
+
+}
+.thead{  
+font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+}
+.bodyrows{
+    border-bottom: 1px solid #DCDCDC;
+    height: 80px;
+    
+}
+.bodycol{
+font-family: Poppins;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+background-color: #FFFFFF;
+margin:0 10px;
+}
+.link{
+text-decoration: none;  
+}
+.select{
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 21px;
+    color: #444748;
+    width:40%;
+    background: #F3F3F3
+}
+.selectwrap{
+position: relative;
+margin-right: 15px;    
+ }
+.arrow{
+position: absolute;
+top:12px;
+left:45px;
+}
+.text{
+font-family: Poppins;
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
 }

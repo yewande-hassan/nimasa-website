@@ -1,8 +1,11 @@
 import Head from "next/head";
-//  import '../styles/globals.css';
-import "bootstrap/dist/css/bootstrap.css";
-// import '../styles/Home.module.css';
-import "../styles/styles.css";
+
+
+import 'bootstrap/dist/css/bootstrap.css';
+
+import'../styles/styles.css';
+
+
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
