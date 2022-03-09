@@ -3,8 +3,9 @@ import { Formik } from 'formik';
 import  {Logo}  from '../component/common/ui/common';
 import styles from '../styles/Signin.module.css';
 import Head from 'next/head'
-
+import { useRouter } from "next/router";
 const Login = ()=>{
+    const router = useRouter();
 return(
     <>
     <Head>

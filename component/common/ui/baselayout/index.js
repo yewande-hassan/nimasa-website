@@ -3,7 +3,7 @@ import styles from "../../../../styles/BaseLayout.module.css";
 
 import { SideNav } from "../common/";
 
-<<<<<<< HEAD
+
 export default function BaseLayout( {children}) {
 
 
@@ -26,23 +26,3 @@ export default function BaseLayout( {children}) {
         </>
     )
 }
-=======
-export default function BaseLayout({ children }) {
-  return (
-    <>
-      <div
-        className="d-flex flex-row bd-highlight mb-3"
-        style={{
-          height: "100vh",
-        }}
-      >
-        <div className="">
-          {" "}
-          <SideNav />
-        </div>
-        <div className={`flex-grow-1 ${styles.marginLeft}`}> {children}</div>
-      </div>
-    </>
-  );
-}
->>>>>>> main
