@@ -17,7 +17,7 @@ export default function BaseLayout( {children}) {
                 }
             }>
                 <div className=""> <SideNav /></div>
-                <div className={`flex-grow-1 ${styles.marginLeft}`}>   {children}</div>
+                <div className={`flex-grow-1 p ${styles.marginLeft}`}>   {children}</div>
 
             </div>
         

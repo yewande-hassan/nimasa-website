@@ -44,7 +44,7 @@ input:focus {
 }
 
 .box {
-  height: 10vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 12px;
