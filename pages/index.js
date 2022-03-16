@@ -1,14 +1,26 @@
 import { Formik } from 'formik';
 import  {Logo}  from '../component/common/ui/common';
 import styles from '../styles/Signin.module.css';
-import Head from 'next/head'
+import Head from 'next/head';
+import { Spinner,Alert } from 'react-bootstrap';
+import { useSelector,useDispatch} from 'react-redux';
+import {Signin} from '../Redux/Auth/authaction';
 
-const Login = ()=>{
-return(
+export default function Login (){
+   const dispatch = useDispatch()
+  
+    const {isLoading, isAuth, error}= useSelector(state =>state.signin);
+    
+    const signin =(value)=>{
+        console.log(isLoading)
+        dispatch(Signin(value))
+    }
+    return(
     <>
     <Head>
         <title>Nimasa Website</title>
     </Head>
+   
         <section className="container-fluid" >
             <main className="row align-items-start" style={{
           height:'100%',
@@ -42,16 +54,17 @@ return(
                             values.password == null
                         ) {
                             errors.email = 'Input password';
+                            
                         }
                         return errors;
                     }}
                     onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                            console.log(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
-                        }, 400);
+                        dispatch(Signin(values))
+                        
                     }}
+                    
                 >
+                  
                     {({
                         values,
                         errors,
@@ -59,13 +72,12 @@ return(
                         handleChange,
                         handleBlur,
                         handleSubmit,
-                        isSubmitting,
 
                     }) => (
                         <form onSubmit={handleSubmit} className="d-grid gap-4 col-4 mx-auto mt-5">
                             <h3 className={`${styles.h3}`}>Sign In</h3>
                             <p className={`${styles.p}`}>Welcome, kindly login with your credentials to use the app</p>
-
+                                {error && <Alert variant='danger'>{error}</Alert>}
                             <input
                                 id="email"
                                 name="email"
@@ -90,7 +102,8 @@ return(
                             <div className='error'>
                                 {errors.password && touched.password && errors.password}
                             </div>
-                            <button type="submit" className="btn btn-success form-control" disabled={isSubmitting}>SIGN IN</button>
+                            <button type="submit" className="btn btn-success form-control" >SIGN IN</button>
+                            {isLoading && <Spinner variant="primary" animation="border"/>} 
                         </form>)}
                 </Formik>
                 </div>
@@ -99,7 +112,8 @@ return(
                 </div>
             </main>
         </section>
+      
     </>
 )
 }
-export default Login;
+
