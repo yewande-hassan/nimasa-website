@@ -1,7 +1,8 @@
 import Link from "next/link";
-import styles from '../../../../styles/BaseLayout.module.css'
+import styles from "../../../../styles/BaseLayout.module.css";
 
-import { SideNav } from '../common/';
+import { SideNav } from "../common/";
+
 
 export default function BaseLayout( {children}) {
 
@@ -16,7 +17,7 @@ export default function BaseLayout( {children}) {
                 }
             }>
                 <div className=""> <SideNav /></div>
-                <div className={`flex-grow-1 ${styles.marginLeft}`}>   {children}</div>
+                <div className={`flex-grow-1 p ${styles.marginLeft}`}>   {children}</div>
 
             </div>
         

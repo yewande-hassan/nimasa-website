@@ -1,18 +1,17 @@
 import Head from "next/head";
-
 import 'bootstrap/dist/css/bootstrap.css';
-
 import'../styles/styles.css';
 import {Provider} from 'react-redux'
 import {store} from '../Redux/store'
 
 
 
-function MyApp({ Component, pageProps }) {
 
+function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
  
   return (
+
   <>
   
   <Head>
@@ -27,5 +26,5 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
-const EmptyLayout = ({ children }) => <>{children}</>
+export default MyApp;
+const EmptyLayout = ({ children }) => <>{children}</>;
