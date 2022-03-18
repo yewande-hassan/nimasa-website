@@ -1,11 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit'
-import signinReducer from './Auth/authslice'
+import { configureStore, } from '@reduxjs/toolkit'
+import signInReducer from './Auth/authslice'
+import thunk from 'redux-thunk';
 
 export const store = configureStore({
     
     reducer:{
-        signin: signinReducer,
+        auth: signInReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck:false
+      }),
 }
 );
 
