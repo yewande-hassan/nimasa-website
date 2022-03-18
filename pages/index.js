@@ -109,11 +109,11 @@ export default function Login() {
                     type="submit"
                     className="btn btn-success form-control"
                   >
-                    SIGN IN
-                  </button>
-                  {isLoading && (
-                    <Spinner variant="primary" animation="border" />
+                    SIGN IN    {isLoading && (
+                    <Spinner variant="dark" animation="border" />
                   )}
+                  </button>
+               
                 </form>
               )}
             </Formik>
