@@ -1,12 +1,18 @@
-import { signinPending,signinSuccess,signinFailed} from './authslice';
-import { userSignin } from '../../pages/api/userApi';
-export const Signin = (user) => async(dispatch)=>{
+import { signInPending, signInSuccess, signInFailed } from "./authslice";
+import { userSignin, userSignIn } from "../../api/userApi";
+export const signIn = (user) => async (dispatch) => {
+
+    dispatch(signInPending())
     try {
-        dispatch(signinPending())
-        const users = await userSignin(user)
-        console.log(user)
-        dispatch(signinSuccess(user))
-    } catch (error) {
-        // dispatch(signinFailed("error.message"))
-    };
-}
+        const users = await userSignIn(user);
+        dispatch(signInSuccess(users))
+    }
+    catch (e) {
+
+        dispatch(signInFailed(e))
+
+
+    }
+
+
+};
