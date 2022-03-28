@@ -1,6 +1,5 @@
-
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import Link from 'next/link'
 import { BaseLayout } from '../../../component/common/ui';
 import styles from '../../../styles/vessels.module.css';
@@ -12,7 +11,20 @@ import Select from '../../../component/common/ui/common/Select';
 
 
 export default function Vessel({transaction}) {
-  return (
+  const[data,setData]=useState()
+
+  useEffect(()=>{
+    axios
+    .get(`${process.env.NEXT_PUBLIC_GET_VESSEL_HISTORY}`,{})
+    .then((res)=> {
+     setData(res.data)
+    })
+    .catch((err)=>{
+   console.log(err)
+    })
+  },[]);
+  
+    return (
     <>
 
       <div className={`d-flex flex-row justify-content-between mt-3 py-3 ${styles.header}`}>
@@ -41,25 +53,25 @@ export default function Vessel({transaction}) {
             <th scope="col">Country</th>
             <th scope="col">IMO Number</th>
             <th scope="col">Email</th>
-            <th scope="col">GRT</th>
+            {/* <th scope="col">GRT</th> */}
             <th scope="col">Contact</th>
             <th scope="col">Status</th>
-            <th scope="col">Date</th>
+            {/* <th scope="col">Date</th> */}
           </tr>
         </thead>
         <tbody className={` ${styles.tbody}`}>
-          {row.map((rows, index) => {
+          {data?.map((rows, index) => {
                        return(
-                        <Link key={rows.index} href="/main/vessel/[id]" as={`/main/vessel/${rows.id}`}><a className={styles.link}>
+                        <Link key={index} href="/main/vessel/[id]" as={`/main/vessel/${rows.id}`}><a className={styles.link}>
                         <tr key={rows.index}className={`d-flex justify-content-between ${styles.bodyrows}`}>
-                           <td className={styles.bodycol}>{rows["vesselName"]}</td>
-                           <td className={styles.bodycol}>{rows["Country"]}</td>
-                           <td className={styles.bodycol}>{rows["IMONumber"]}</td>
-                           <td className={styles.bodycol}>{rows["Email"]}</td>
-                           <td className={styles.bodycol} >{rows["GRT"]}</td>
-                           <td className={styles.bodycol}>{rows["Contact"]}</td>
-                           <td className={styles.bodycol}>{rows["Status"]}</td>
-                           <td className={styles.bodycol}>{rows["Date"]}</td>
+                           <td className={styles.bodycol}>{rows["name"]}</td>
+                           <td className={styles.bodycol}>{rows["country"]}</td>
+                           <td className={styles.bodycol}>{rows["imonumber"]}</td>
+                           <td className={styles.bodycol}>{rows["email"]}</td>
+                           {/* <td className={styles.bodycol} >{rows["GRT"]}</td> */}
+                           <td className={styles.bodycol}>{rows["contactnumber"]}</td>
+                           <td className={styles.bodycol}>{rows["isActive"]}</td>
+                           {/* <td className={styles.bodycol}>{rows["Date"]}</td> */}
                          </tr>
                       
                       </a>
