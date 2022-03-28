@@ -1,8 +1,8 @@
 import { Spinner } from "react-bootstrap";
-import React, { useState }from 'react'
+import React, { useState } from 'react'
 import styles from '../../../styles/addVessel.module.css'
 
-export default function index() {
+export default function Index() {
   const [formState, setFormState] = useState({
     vesselname:"",
     country:"",
