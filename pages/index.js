@@ -41,7 +41,12 @@ export default function Login() {
 
                 if (!values.email) {
                   errors.email = "Incorrect Email";
-                } else if (
+                } 
+                 if (!values.password) {
+                  errors.password = "Please Input a Password";
+                } 
+                
+                else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
                     values.email
                   )
@@ -51,15 +56,7 @@ export default function Login() {
                 return errors;
               }}
               // eslint-disable-next-line react/jsx-no-duplicate-props
-              validate={(values) => {
-                const errors = {};
-                if (!values.password) {
-                  errors.password = "Please Input a Password";
-                } else if (values.password == null) {
-                  errors.email = "Input password";
-                }
-                return errors;
-              }}
+       
               onSubmit={(values, { setSubmitting }) => {
                 dispatch(login(values));
               }}
