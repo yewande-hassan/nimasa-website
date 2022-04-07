@@ -57,7 +57,7 @@ export default function Login() {
               }}
               // eslint-disable-next-line react/jsx-no-duplicate-props
        
-              onSubmit={(values, { setSubmitting }) => {
+              onSubmit={(values) => {
                 dispatch(login(values));
               }}
             >
