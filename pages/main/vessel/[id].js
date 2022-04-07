@@ -1,15 +1,28 @@
 import { useRouter } from 'next/router';
-import Link from 'next/link'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {transaction} from '../../../component/common/ui/common/data/transaction'
 import styles from '../../../styles/vesselDetails.module.css';
 import { BaseLayout } from '../../../component/common/ui';
-import { transaction } from '../../../component/common/ui/common/data/transaction';
+import axios from 'axios';
 
 
 
 export default function VesselDetails() {
   const router = useRouter()
   const {id} = router.query
+  const [identity, setIdentity] = useState();
+  
+  useEffect(() => {
+    axios
+    .get(`${process.env.NEXT_PUBLIC_URL}vessel/`+`${id}`,{})
+    .then((res) => {
+      setIdentity(res.data);
+    })
+    .catch((err) => {
+    
+    });
+}, []);
+
   return (
     <>
 
@@ -32,7 +45,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Vessel Name</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>IHS Maritime</p>
+            <p className={`${styles.thead}`}>{identity?.name}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -40,7 +53,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Country</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>United Kingdom</p>
+            <p className={`${styles.thead}`}>{identity?.country}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -48,23 +61,23 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>IMO Number</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>4565529</p>
+            <p className={`${styles.thead}`}>{identity?.imonumber}</p>
             </div>
           </div>
-          <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
+          {/* <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
             <div >
               <p className={`${styles.paragraph1}`}>GRT</p>
             </div>
             <div>
             <p className={`${styles.thead}`}>100</p>
             </div>
-          </div>
+          </div> */}
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
             <div >
               <p className={styles.paragraph1}>Email</p>
             </div>
             <div>
-            <p className={styles.thead}>fairplay.owners@ihs.com</p>
+            <p className={styles.thead}>{identity?.email}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -72,7 +85,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Contact</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>09013457318</p>
+            <p className={`${styles.thead}`}>{identity?.contactnumber}</p>
             </div>
           </div>
         </section>
@@ -94,7 +107,7 @@ export default function VesselDetails() {
 
               {transaction.map((rows, index) => {
                             return(
-                              <tr key={rows.index} className={`d-flex justify-content-between ${styles.bodyrows}`}>
+                              <tr key={index} className={`d-flex justify-content-between ${styles.bodyrows}`}>
                                  <td className={styles.bodycol}>{rows["TransactionId"]}</td>
                                  <td className={styles.bodycol}>{rows["Category"]}</td>
                                  <td className={styles.bodycol}>{rows["TotalAmount"]}</td>

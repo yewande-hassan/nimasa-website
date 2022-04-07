@@ -3,7 +3,6 @@ import axios from "axios";
 import Link from "next/link";
 import { BaseLayout } from "../../../component/common/ui";
 import styles from "../../../styles/vessels.module.css";
-import { row } from "../../../component/common/ui/common/data/row";
 import Search from "../../../component/common/ui/common/Search";
 import Buttongreen from "../../../component/common/ui/common/Buttongreen";
 import Select from "../../../component/common/ui/common/Select";
@@ -11,10 +10,11 @@ import { Modal, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { Spinner } from "react-bootstrap";
 
-export default function Vessel({ transaction }) {
+export default function Vessel() {
   const [data, setData] = useState();
   const [country, setCountry] = useState();
   const [grts,setGrt]=useState();
+ 
   const [show, setShow] = useState(false);
   const errorMessage = "Please enter";
 
@@ -28,7 +28,6 @@ export default function Vessel({ transaction }) {
         setCountry(res.data.data);
       })
       .catch((err) => {
-        // console.log(err)
       });
   }, []);
 
@@ -40,7 +39,6 @@ export default function Vessel({ transaction }) {
         setGrt(res.data)
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -49,11 +47,64 @@ export default function Vessel({ transaction }) {
       .get(`${process.env.NEXT_PUBLIC_URL}vessel`, {})
       .then((res) => {
         setData(res.data);
+       
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+ 
+  
+  const addVessel =(Vessel)=>{
+    new Promise(async (resolve, reject) => {
+      try {
+    const requestOption = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify({
+          
+         ...Vessel
+       },)
+      };
+      const response =await fetch(`${process.env.NEXT_PUBLIC_URL}vessel`, requestOption)
+      const fetchResult = await response.json();
+
+      if (response.ok) {
+       
+
+        resolve(fetchResult);
+      } else {
+ 
+        const responseError = {
+            type: 'Error',
+            message: fetchResult.message || 'Something went wrong',
+            data: fetchResult.data || '',
+            code: fetchResult.code || '',
+          };
+          let error = new Error();
+          error = { ...error, ...responseError };
+        throw (error);
+      }
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data.Token}`;
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+   
+
+      const result = {
+        vessel: parseJwt(data.Token)["data"],
+        token: data.Token,
+      };
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+    } catch (error) {
+      reject(error.message);
+
+
+    }
+  });
+};
 
   return (
     <>
@@ -104,8 +155,9 @@ export default function Vessel({ transaction }) {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
+            onSubmit={(Vessel) => {
+              // console.log(values);
+              addVessel(Vessel)
             }}
           >
             {({
@@ -233,6 +285,9 @@ export default function Vessel({ transaction }) {
                   className={`btn btn-success form-control mt-2 ${styles.button}`}
                 >
                   SUBMIT
+                  {/* {(
+                    <Spinner variant="dark" animation="border" />
+                    )} */}
                 </button>
               </form>
             )}
