@@ -9,12 +9,15 @@ import Select from "../../../component/common/ui/common/Select";
 import { Modal, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { Spinner } from "react-bootstrap";
-
+import { userService } from "../../../services";
+import Router from "next/router";
+import useSWR, { mutate } from "swr";
+import {Overlay} from "../../../component/common/ui/common";
 export default function Vessel() {
-  const [data, setData] = useState();
+  const [datas, setData] = useState();
   const [country, setCountry] = useState();
-  const [grts,setGrt]=useState();
- 
+  const [grts, setGrt] = useState();
+
   const [show, setShow] = useState(false);
   const errorMessage = "Please enter";
 
@@ -27,85 +30,87 @@ export default function Vessel() {
       .then((res) => {
         setCountry(res.data.data);
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   }, []);
-
 
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_URL}grt`, {})
       .then((res) => {
-        setGrt(res.data)
+        setGrt(res.data);
       })
-      .catch((err) => {
-      });
+      .catch((err) => {});
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_URL}vessel`, {})
-      .then((res) => {
-        setData(res.data);
-       
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    userService.getAllVessel().then((x) => {
+      setData(x);
+    });
   }, []);
- 
-  
-  const addVessel =(Vessel)=>{
+
+  const getAllVessel = async () => {
+    const response = await userService.getAllVessel();
+
+    return response;
+  };
+
+  const handleRowClick = (id) => {
+    Router.push("/main/vessel/" + id);
+  };
+
+  const addVessel = (Vessel) => {
     new Promise(async (resolve, reject) => {
       try {
-    const requestOption = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body:JSON.stringify({
-          
-         ...Vessel
-       },)
-      };
-      const response =await fetch(`${process.env.NEXT_PUBLIC_URL}vessel`, requestOption)
-      const fetchResult = await response.json();
+        const requestOption = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...Vessel,
+          }),
+        };
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_URL}vessel`,
+          requestOption
+        );
+        const fetchResult = await response.json();
 
-      if (response.ok) {
-       
-
-        resolve(fetchResult);
-      } else {
- 
-        const responseError = {
-            type: 'Error',
-            message: fetchResult.message || 'Something went wrong',
-            data: fetchResult.data || '',
-            code: fetchResult.code || '',
+        if (response.ok) {
+          resolve(fetchResult);
+        } else {
+          const responseError = {
+            type: "Error",
+            message: fetchResult.message || "Something went wrong",
+            data: fetchResult.data || "",
+            code: fetchResult.code || "",
           };
           let error = new Error();
           error = { ...error, ...responseError };
-        throw (error);
+          throw error;
+        }
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${data.Token}`;
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+
+        const result = {
+          vessel: parseJwt(data.Token)["data"],
+          token: data.Token,
+        };
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+      } catch (error) {
+        reject(error.message);
       }
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${data.Token}`;
+    });
+  };
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
-   
-
-      const result = {
-        vessel: parseJwt(data.Token)["data"],
-        token: data.Token,
-      };
-
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
-    } catch (error) {
-      reject(error.message);
-
-
-    }
-  });
-};
-
+  const { data, error } = useSWR("Vessel", getAllVessel);
+  if (error) return `${error.message}`;
+  if (!data)
+    return (
+    <Overlay />
+    );
   return (
     <>
       <Modal
@@ -157,7 +162,7 @@ export default function Vessel() {
             }}
             onSubmit={(Vessel) => {
               // console.log(values);
-              addVessel(Vessel)
+              addVessel(Vessel);
             }}
           >
             {({
@@ -241,37 +246,34 @@ export default function Vessel() {
                 </div>
 
                 <div className="form-group my-1 mb-2">
-                <input
-                  id="contactnumber"
-                  name="contactnumber"
-                  type="text"
-                  placeholder="Contact number"
-                  className={`form-control`}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.contactnumber}
-                />
-                <div className="error">
-                  {errors.contactnumber &&
-                    touched.contactnumber &&
-                    errors.contactnumber}
-                </div>
+                  <input
+                    id="contactnumber"
+                    name="contactnumber"
+                    type="text"
+                    placeholder="Contact number"
+                    className={`form-control`}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.contactnumber}
+                  />
+                  <div className="error">
+                    {errors.contactnumber &&
+                      touched.contactnumber &&
+                      errors.contactnumber}
+                  </div>
                 </div>
                 <div className="form-group my-1 mb-2">
-                <select
-          
+                  <select
                     className="form-control"
                     id="grt"
                     name="grt"
                     value={values.grt}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    
                   >
-                    
                     {grts?.map((option, index) => (
                       <option key={option.id} value={option.id}>
-                        {option.min} -      {option.max} 
+                        {option.min} - {option.max}
                       </option>
                     ))}
                   </select>
@@ -279,7 +281,7 @@ export default function Vessel() {
                     {errors.grt && touched.grt && errors.grt}
                   </div>
                 </div>
-         
+
                 <button
                   type="submit"
                   className={`btn btn-success form-control mt-2 ${styles.button}`}
@@ -321,43 +323,38 @@ export default function Vessel() {
         </div>
       </div>
 
-      <table className={`table table-borderless ${styles.head}`}>
+      <table className={`table   table-striped `}>
         <thead className={styles.thead}>
-          <tr className="p-3 d-flex justify-content-between">
-            <th scope="col">Vessel Name</th>
-            <th scope="col">Country</th>
-            <th scope="col">IMO Number</th>
-            <th scope="col">Email</th>
-            {/* <th scope="col">GRT</th> */}
-            <th scope="col">Contact</th>
-            <th scope="col">Status</th>
-            {/* <th scope="col">Date</th> */}
+          <tr>
+            <th>Vessel Name</th>
+            <th>Country</th>
+            <th>IMO Number</th>
+            <th>Email</th>
+            {/* <th >GRT</th> */}
+            <th>Contact</th>
+            <th>Status</th>
+            {/* <th >Date</th> */}
           </tr>
         </thead>
         <tbody className={` ${styles.tbody}`}>
           {data?.map((rows, index) => {
             return (
-              <Link
+              <tr
                 key={index}
-                href="/main/vessel/[id]"
-                as={`/main/vessel/${rows.id}`}
+                onClick={() => {
+                  handleRowClick(rows.id);
+                }}
+             
               >
-                <a className={styles.link}>
-                  <tr
-                    key={rows.index}
-                    className={`d-flex justify-content-between ${styles.bodyrows}`}
-                  >
-                    <td className={styles.bodycol}>{rows["name"]}</td>
-                    <td className={styles.bodycol}>{rows["country"]}</td>
-                    <td className={styles.bodycol}>{rows["imonumber"]}</td>
-                    <td className={styles.bodycol}>{rows["email"]}</td>
-                    {/* <td className={styles.bodycol} >{rows["GRT"]}</td> */}
-                    <td className={styles.bodycol}>{rows["contactnumber"]}</td>
-                    <td className={styles.bodycol}>{rows["isActive"]}</td>
-                    {/* <td className={styles.bodycol}>{rows["Date"]}</td> */}
-                  </tr>
-                </a>
-              </Link>
+                <td>{rows["name"]}</td>
+                <td>{rows["country"]}</td>
+                <td>{rows["imonumber"]}</td>
+                <td>{rows["email"]}</td>
+                {/* <td  >{rows["GRT"]}</td> */}
+                <td>{rows["contactnumber"]}</td>
+                <td>{rows["isActive"]}</td>
+                {/* <td >{rows["Date"]}</td> */}
+              </tr>
             );
           })}
         </tbody>
