@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
- import { userService } from  '../services';
+ import { vesselService } from  '../services';
 
 
 function MyApp({ Component, pageProps }) {
@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
                   // redirect to login page if accessing a private page and not logged in 
                   const publicPaths = ['/'];
                   const path = url.split('?')[0];
-                  if (!userService.userValue && !publicPaths.includes(path)) {
+                  if (!vesselService.userValue && !publicPaths.includes(path)) {
                       setAuthorized(false);
                       // router.push({
                       //     pathname: '/',
@@ -73,7 +73,7 @@ const EmptyLayout = ({ children }) => <>{children}</>;
 // import { useRouter } from 'next/router';
 
 // import 'styles/globals.css';
-// import { userService } from 'services';
+// import { vesselService } from 'services';
 // import { Nav } from 'components';
 
 // export default App;
@@ -104,7 +104,7 @@ const EmptyLayout = ({ children }) => <>{children}</>;
 //         // redirect to login page if accessing a private page and not logged in 
 //         const publicPaths = ['/login'];
 //         const path = url.split('?')[0];
-//         if (!userService.userValue && !publicPaths.includes(path)) {
+//         if (!vesselService.userValue && !publicPaths.includes(path)) {
 //             setAuthorized(false);
 //             router.push({
 //                 pathname: '/login',
