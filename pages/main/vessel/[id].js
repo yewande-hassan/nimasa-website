@@ -3,25 +3,26 @@ import React, { useEffect, useState } from 'react';
 import {transaction} from '../../../component/common/ui/common/data/transaction'
 import styles from '../../../styles/vesselDetails.module.css';
 import { BaseLayout } from '../../../component/common/ui';
-import axios from 'axios';
+import useSWR, { mutate } from "swr";
+import { Overlay } from "../../../component/common/ui/common";
 
-
+import { vesselService } from "../../../services";
 
 export default function VesselDetails() {
   const router = useRouter()
   const {id} = router.query
-  const [identity, setIdentity] = useState();
+
   
-  useEffect(() => {
-    axios
-    .get(`${process.env.NEXT_PUBLIC_URL}vessel/`+`${id}`,{})
-    .then((res) => {
-      setIdentity(res.data);
-    })
-    .catch((err) => {
-    
-    });
-}, []);
+ 
+const getOneVessel = async () => {
+  const response = await vesselService.getOneVessel(id)
+
+  return response;
+};
+
+const { data, error } = useSWR("oneVessel", getOneVessel);
+if (error) return `${error.message}`;
+if (!data) return <Overlay />;
 
   return (
     <>
@@ -45,7 +46,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Vessel Name</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>{identity?.name}</p>
+            <p className={`${styles.thead}`}>{data?.name}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -53,7 +54,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Country</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>{identity?.country}</p>
+            <p className={`${styles.thead}`}>{data?.country}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -61,7 +62,7 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>IMO Number</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>{identity?.imonumber}</p>
+            <p className={`${styles.thead}`}>{data?.imonumber}</p>
             </div>
           </div>
           {/* <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -77,7 +78,7 @@ export default function VesselDetails() {
               <p className={styles.paragraph1}>Email</p>
             </div>
             <div>
-            <p className={styles.thead}>{identity?.email}</p>
+            <p className={styles.thead}>{data?.email}</p>
             </div>
           </div>
           <div className={`d-flex flex-row mt-2 justify-content-between ${styles.contain}`}>
@@ -85,35 +86,35 @@ export default function VesselDetails() {
               <p className={`${styles.paragraph1}`}>Contact</p>
             </div>
             <div>
-            <p className={`${styles.thead}`}>{identity?.contactnumber}</p>
+            <p className={`${styles.thead}`}>{data?.contactnumber}</p>
             </div>
           </div>
         </section>
         <section className={`col-7 `}>
 
           <h6 className={` my-2 ${styles.h6}`}>Transaction</h6>
-          <table className={` table table-borderless`}>
-            <thead className={`${styles.thead}`}>
-              <tr className='d-flex justify-content-between'>
-                <th scope="col">Transaction ID</th>
-                <th scope="col">Category</th>
-                <th scope="col">Total Amount</th>
-                <th scope="col">Location</th>
-                <th scope="col">Approved By </th>
-                <th scope="col">Date</th>
+          <table className={` table table-borderless table-striped`}>
+            <thead >
+              <tr>
+                <th> ID</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Zone</th>
+                <th>Approved </th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>
 
               {transaction.map((rows, index) => {
                             return(
-                              <tr key={index} className={`d-flex justify-content-between ${styles.bodyrows}`}>
-                                 <td className={styles.bodycol}>{rows["TransactionId"]}</td>
-                                 <td className={styles.bodycol}>{rows["Category"]}</td>
-                                 <td className={styles.bodycol}>{rows["TotalAmount"]}</td>
-                                 <td className={styles.bodycol}>{rows["Location"]}</td>
-                                 <td className={styles.bodycol} >{rows["ApprovedBy"]}</td>
-                                 <td className={styles.bodycol}>{rows["Date"]}</td>
+                              <tr key={index} >
+                                 <td>{rows["TransactionId"]}</td>
+                                 <td>{rows["Category"]}</td>
+                                 <td>{rows["TotalAmount"]}</td>
+                                 <td>{rows["Location"]}</td>
+                                 <td >{rows["ApprovedBy"]}</td>
+                                 <td>{rows["Date"]}</td>
  
                                </tr>
                               

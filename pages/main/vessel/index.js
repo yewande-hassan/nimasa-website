@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Link from "next/link";
+
 import { BaseLayout } from "../../../component/common/ui";
 import styles from "../../../styles/vessels.module.css";
 import Search from "../../../component/common/ui/common/Search";
@@ -8,13 +8,12 @@ import Buttongreen from "../../../component/common/ui/common/Buttongreen";
 import Select from "../../../component/common/ui/common/Select";
 import { Modal, Button } from "react-bootstrap";
 import { Formik } from "formik";
-import { Spinner } from "react-bootstrap";
-import { userService } from "../../../services";
+
+import { vesselService } from "../../../services";
 import Router from "next/router";
 import useSWR, { mutate } from "swr";
-import {Overlay} from "../../../component/common/ui/common";
+import { Overlay } from "../../../component/common/ui/common";
 export default function Vessel() {
-  const [datas, setData] = useState();
   const [country, setCountry] = useState();
   const [grts, setGrt] = useState();
 
@@ -25,31 +24,25 @@ export default function Vessel() {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_COUNTRY}`, {})
+    vesselService
+      .getAllCountry()
       .then((res) => {
-        setCountry(res.data.data);
+        setCountry(res.data);
       })
       .catch((err) => {});
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_URL}grt`, {})
+    vesselService
+      .getAllGRT()
       .then((res) => {
-        setGrt(res.data);
+        setGrt(res);
       })
       .catch((err) => {});
-  }, []);
-
-  useEffect(() => {
-    userService.getAllVessel().then((x) => {
-      setData(x);
-    });
   }, []);
 
   const getAllVessel = async () => {
-    const response = await userService.getAllVessel();
+    const response = await vesselService.getAllVessel();
 
     return response;
   };
@@ -59,58 +52,68 @@ export default function Vessel() {
   };
 
   const addVessel = (Vessel) => {
-    new Promise(async (resolve, reject) => {
-      try {
-        const requestOption = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...Vessel,
-          }),
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}vessel`,
-          requestOption
-        );
-        const fetchResult = await response.json();
 
-        if (response.ok) {
-          resolve(fetchResult);
-        } else {
-          const responseError = {
-            type: "Error",
-            message: fetchResult.message || "Something went wrong",
-            data: fetchResult.data || "",
-            code: fetchResult.code || "",
-          };
-          let error = new Error();
-          error = { ...error, ...responseError };
-          throw error;
-        }
-        axiosInstance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${data.Token}`;
 
-        axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+    // const addVessel = (Vessel) => {
+    //   new Promise(async (resolve, reject) => {
+    //     try {
+    //       const requestOption = {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({
+    //           ...Vessel,
+    //         }),
+    //       };
+    //       const response = await fetch(
+    //         `${process.env.NEXT_PUBLIC_URL}vessel`,
+    //         requestOption
+    //       );
+    //       const fetchResult = await response.json();
+  
+    //       if (response.ok) {
+    //         resolve(fetchResult);
+    //       } else {
+    //         const responseError = {
+    //           type: "Error",
+    //           message: fetchResult.message || "Something went wrong",
+    //           data: fetchResult.data || "",
+    //           code: fetchResult.code || "",
+    //         };
+    //         let error = new Error();
+    //         error = { ...error, ...responseError };
+    //         throw error;
+    //       }
+    //       axiosInstance.defaults.headers.common[
+    //         "Authorization"
+    //       ] = `Bearer ${data.Token}`;
+  
+    //       axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+  
+    //       const result = {
+    //         vessel: parseJwt(data.Token)["data"],
+    //         token: data.Token,
+    //       };
+  
+    //       axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+    //     } catch (error) {
+    //       reject(error.message);
+    //     }
+    //   });
+    // };
 
-        const result = {
-          vessel: parseJwt(data.Token)["data"],
-          token: data.Token,
-        };
 
-        axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
-      } catch (error) {
-        reject(error.message);
-      }
-    });
+
+    vesselService
+    .addVessel(Vessel)
+    .then((res) => {
+      mutate("Vessel")
+    })
+    .catch((err) => {});
   };
 
   const { data, error } = useSWR("Vessel", getAllVessel);
   if (error) return `${error.message}`;
-  if (!data)
-    return (
-    <Overlay />
-    );
+  if (!data) return <Overlay />;
   return (
     <>
       <Modal
@@ -161,7 +164,7 @@ export default function Vessel() {
               return errors;
             }}
             onSubmit={(Vessel) => {
-              // console.log(values);
+               console.log(Vessel);
               addVessel(Vessel);
             }}
           >
@@ -344,7 +347,6 @@ export default function Vessel() {
                 onClick={() => {
                   handleRowClick(rows.id);
                 }}
-             
               >
                 <td>{rows["name"]}</td>
                 <td>{rows["country"]}</td>
