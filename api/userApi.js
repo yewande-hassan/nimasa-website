@@ -12,7 +12,7 @@ export const userSignIn = (user) => {
            ...user
          },)
       };
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}user/login`, requestOptions);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}auth/login`, requestOptions);
       const fetchResult = await response.json();
 
 

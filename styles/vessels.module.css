@@ -111,7 +111,7 @@ text-decoration: none;
     font-size: 14px;
     line-height: 21px;
     color: #444748;
-    width:40%;
+    width:100%;
     background: #F3F3F3
 }
 .selectwrap{
@@ -121,7 +121,7 @@ margin-right: 15px;
 .arrow{
 position: absolute;
 top:12px;
-left:45px;
+right:10px;
 }
 .text{
 font-family: Poppins;
