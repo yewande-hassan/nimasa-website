@@ -20,7 +20,16 @@ font-size: 14px;
 padding: 7px 30px;
 color: #FFFFFF;
 }
-
+.successBtn{
+background: #049D55;
+border-radius: 6px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 21px;
+color: #FFFFFF;
+}
 .paragraph{
 font-family: Poppins;
 font-weight: 300;

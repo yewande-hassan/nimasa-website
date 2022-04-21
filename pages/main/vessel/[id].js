@@ -4,6 +4,8 @@ import {transaction} from '../../../component/common/ui/common/data/transaction'
 import styles from '../../../styles/vesselDetails.module.css';
 import { BaseLayout } from '../../../component/common/ui';
 import axios from 'axios';
+import Link from 'next/link';
+import Router from "next/router";
 
 
 
@@ -23,11 +25,20 @@ export default function VesselDetails() {
     });
 }, []);
 
+const handleRowClick = () => {
+  Router.push("/main/vessel/invoice");
+};
+
   return (
     <>
 
       <div className={`d-flex flex-row justify-content-between mt-3 py-3 ${styles.wrapp}`}>
         <h3 className={`start-5 mx-3 ${styles.header}`}>Vessel Information</h3>
+       
+        <button  onClick={() => {
+                  handleRowClick();
+                }} type="button" className={`btn btn-success btn-lg mx-3 ${styles.successBtn}`}>Create Invoice</button>
+       
       </div >
       <main className='row container-fluid'>
         <section className={`col-5 ${styles.section1}`}>
