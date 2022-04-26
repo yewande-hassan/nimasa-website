@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+
 import { BaseLayout } from '../../../component/common/ui';
 import { vesselService } from '../../../services';
 import styles from '../../../styles/Invoice.module.css';
 import { Formik } from "formik";
-
-export default function invoice() {
+import React, { useEffect,useState } from "react";
+export default function Invoice() {
  const [category, setCategory] = useState();
  const [grts, setGrt] = useState();
  const [zone,setZone] = useState();
@@ -202,4 +202,4 @@ useEffect(() => {
       </>
     )
 };
-invoice.Layout = BaseLayout;
+Invoice.Layout = BaseLayout;
