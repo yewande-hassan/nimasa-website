@@ -5,16 +5,33 @@ import Head from "next/head";
 import { Spinner, Alert } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { signIn } from "../Redux/Auth/authaction";
-
+import { clearUser } from "../Redux/Auth/authslice";
 import React, { useEffect } from "react";
+import { useRouter } from 'next/router'
 export default function Login() {
   const dispatch = useDispatch();
+  const router = useRouter()
+  useEffect(() => {
+    dispatch(clearUser());
+  }, []);
 
-  const { isLoading, isAuth, error } = useSelector((state) => state.auth);
+  const { isLoading, isAuth, user, error } = useSelector((state) => state.auth);
 
   const login = (value) => {
     dispatch(signIn(value));
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/main");
+    }
+    if (error) {
+      setTimeout(()=>{
+        dispatch(clearUser());
+      },500)
+   
+    }
+  }, [user, error]);
   return (
     <>
       <Head>
@@ -41,12 +58,10 @@ export default function Login() {
 
                 if (!values.email) {
                   errors.email = "Incorrect Email";
-                } 
-                 if (!values.password) {
+                }
+                if (!values.password) {
                   errors.password = "Please Input a Password";
-                } 
-                
-                else if (
+                } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
                     values.email
                   )
@@ -56,7 +71,7 @@ export default function Login() {
                 return errors;
               }}
               // eslint-disable-next-line react/jsx-no-duplicate-props
-       
+
               onSubmit={(values) => {
                 dispatch(login(values));
               }}
@@ -106,11 +121,9 @@ export default function Login() {
                     type="submit"
                     className="btn btn-success form-control"
                   >
-                    SIGN IN    {isLoading && (
-                    <Spinner variant="dark" animation="border" />
-                  )}
+                    SIGN IN{" "}
+                    {isLoading && <Spinner variant="dark" animation="border" />}
                   </button>
-               
                 </form>
               )}
             </Formik>

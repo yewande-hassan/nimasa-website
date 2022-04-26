@@ -1,4 +1,5 @@
 import axios from "axios";
+import {parseJwt} from "../helpers/api"
 
 
 export const userSignIn = (user) => {
@@ -35,17 +36,15 @@ export const userSignIn = (user) => {
       }
       axiosInstance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${data.Token}`;
+      ] = `Bearer ${data.access_token}`;
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.access_token}`;
     //  setCookie("token", data.Token);
 
-      const result = {
-        user: parseJwt(data.Token)["data"],
-        token: data.Token,
-      };
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.Token}`;
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.access_token}`;
+      
     } catch (error) {
       reject(error.message);
 
