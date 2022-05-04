@@ -7,14 +7,14 @@ import React, { useEffect,useState } from "react";
 export default function Invoice() {
  const [category, setCategory] = useState();
  const [grts, setGrt] = useState();
- const [zone,setZone] = useState();
+ const [zone, setZone] = useState();
  const errorMessage = "Please enter correct information on"
 
  useEffect(()=>{
      vesselService
      .categoryVessel()
      .then((res) => {
-        setCategory(res.data)
+        setCategory(res)
      })
      .catch((err) => {});
  },[]);
@@ -62,9 +62,9 @@ useEffect(() => {
             }
             return errors;
           }}
-          onSubmit={(invoice) => {
-            console.log(invoice);
-            categoryVessel(invoice);
+          onSubmit={(Invoice) => {
+            console.log(Invoice);
+            categoryVessel(Invoice);
           }}
 
         > 
@@ -81,8 +81,8 @@ useEffect(() => {
               {/* <Select/> */}
               <select
                 className="form-control"
-                id="categoryVessel"
-                name="categoryVessel"
+                id="category"
+                name="category"
                 value={values.category}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -90,7 +90,7 @@ useEffect(() => {
                 <option disabled selected>
                   Category of vessel
                 </option>
-                {category?.map((categorys, index) => (
+                {category?.map((categorys) => (
                   <option key={categorys.id} value={categorys.id}>
                     {categorys.name}
                   </option>
@@ -133,7 +133,7 @@ useEffect(() => {
                   >
                     {zone?.map((zones) => (
                       <option key={zones.id} value={zones.id}>
-                        {zones.name}
+                        {zones.zone}
                       </option>
                     ))}
                   </select>
@@ -153,7 +153,7 @@ useEffect(() => {
                   >
                     {zone?.map((zones) => (
                       <option key={zones.id} value={zones.id}>
-                        {zones.name}
+                        {zones.zone}
                       </option>
                     ))}
                   </select>
