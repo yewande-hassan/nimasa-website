@@ -20,7 +20,8 @@ export const vesselService = {
     getOneVessel,
     addVessel,
     categoryVessel,
-    loadPort
+    loadPort,
+    loadLocation
 };
 
 function login(username, password) {
@@ -65,4 +66,7 @@ function categoryVessel(){
 }
 function loadPort(){
     return fetchWrapper.get(baseUrl+`zone`)
+}
+function loadLocation(){
+    return fetchWrapper.get(baseUrl+`location`)
 }
