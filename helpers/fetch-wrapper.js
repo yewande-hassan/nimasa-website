@@ -4,6 +4,8 @@ import { vesselService } from '../services';
 
 const { publicRuntimeConfig } = getConfig();
 
+
+
 export const fetchWrapper = {
     get,
     post,
@@ -16,7 +18,7 @@ function get(url) {
         method: 'GET',
         headers: authHeader(url)
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    return fetchRetry(url, requestOptions).then(handleResponse);
 }
 
 function post(url, body) {
@@ -28,7 +30,7 @@ function post(url, body) {
         body: JSON.stringify({ ...body })
     };
 
-    return fetch(url, requestOptions).then(handleResponse);
+    return fetchRetry(url, requestOptions).then(handleResponse);
 }
 
 function put(url, body) {
@@ -37,7 +39,7 @@ function put(url, body) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         body: JSON.stringify({ ...body })
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    return fetchRetry(url, requestOptions).then(handleResponse);
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
@@ -46,7 +48,7 @@ function _delete(url) {
         method: 'DELETE',
         headers: authHeader(url)
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    return fetchRetry(url, requestOptions).then(handleResponse);
 }
 
 // helper functions
@@ -79,4 +81,20 @@ function handleResponse(response) {
 
         return data;
     });
+}
+
+
+function wait(delay){
+    return new Promise((resolve) => setTimeout(resolve, delay));
+}
+
+function fetchRetry(url, delay, tries, fetchOptions = {}) {
+    function onError(err){
+        triesLeft = tries - 1;
+        if(!triesLeft){
+            throw err;
+        }
+        return wait(delay).then(() => fetchRetry(url, delay, triesLeft, fetchOptions));
+    }
+    return fetch(url,fetchOptions).catch(onError);
 }

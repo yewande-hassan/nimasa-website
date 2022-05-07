@@ -17,36 +17,37 @@ export default function Invoice() {
         setCategory(res)
      })
      .catch((err) => {});
+
+     vesselService
+     .getAllGRT()
+     .then((res) => {
+       setGrt(res);
+     })
+     .catch((err) => {});
+
+
+
+     vesselService
+     .loadLocation()
+     .then((res) => {
+       setZone(res);
+     })
+     .catch((err) => {});
  },[]);
 
- useEffect(() => {
-  vesselService
-    .getAllGRT()
-    .then((res) => {
-      setGrt(res);
-    })
-    .catch((err) => {});
-}, []);
 
-useEffect(() => {
-  vesselService
-    .loadPort()
-    .then((res) => {
-      setZone(res);
-    })
-    .catch((err) => {});
-}, []);
 
     return (
       <>
         <div className={`d-flex flex-row justify-content-between mt-3 py-3 ${styles.wrapp}`}>
-          <h3 className={`start-5 mx-3 ${styles.header}`}>Create Vessel</h3>
+          <h3 className={`start-5 mx-3 ${styles.header}`}>Create New Invoice</h3>
         </div>
         <Formik
           initialValues={{
             category: "",
             grt:"",
-            zone:""
+            loadport:"",
+            dischargeport:"",
           }}
           validate={(values) => {
             const errors = {};
@@ -57,14 +58,17 @@ useEffect(() => {
             if (!values.grt || grt == null) {
               errors.grt = `${errorMessage} GRT`;
             }
-            if (!values.zone) {
-              errors.zone = `${errorMessage} Port`;
+            if (!values.loadport) {
+              errors.loadport = `${errorMessage} Port`;
+            }
+            if (!values.dischargeport) {
+              errors.dischargeport = `${errorMessage} Port`;
             }
             return errors;
           }}
           onSubmit={(Invoice) => {
             console.log(Invoice);
-            categoryVessel(Invoice);
+          //  categoryVessel(Invoice);
           }}
 
         > 
@@ -73,9 +77,10 @@ useEffect(() => {
           errors,
           touched,
           handleChange,
-          handleBlur
+          handleBlur,
+          handleSubmit,
         }) => (
-          <form className='row g-3 justify-content-between p-2 m-1'>
+          <form className='row g-3 justify-content-between p-2 m-1'   onSubmit={handleSubmit}>
             <div className={`col-md-4 ${styles.selects}`} >
               <label>Category of vessel</label>
               {/* <Select/> */}
@@ -87,12 +92,10 @@ useEffect(() => {
                 onChange={handleChange}
                 onBlur={handleBlur}
               >
-                <option disabled selected>
-                  Category of vessel
-                </option>
-                {category?.map((categorys) => (
-                  <option key={categorys.id} value={categorys.id}>
-                    {categorys.name}
+                 <option disabled value="">Pick Category</option>
+                {category?.map((categorys,i) => (
+                  <option key={i} value={categorys.id}>
+                    {categorys.description}
                   </option>
                 ))}
               </select>
@@ -110,8 +113,9 @@ useEffect(() => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   >
-                    {grts?.map((option) => (
-                      <option key={option.id} value={option.id}>
+                      <option disabled value="">Pick GRT</option>
+                    {grts?.map((option,i) => (
+                      <option key={i} value={option.id}>
                         {option.min} - {option.max}
                       </option>
                     ))}
@@ -125,42 +129,52 @@ useEffect(() => {
               <label>Load Port</label>
               <select
                     className="form-control"
-                    id="zone"
-                    name="zone"
-                    value={values.zone}
+                    id="loadport"
+                    name="loadport"
+                    value={values.loadport}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   >
-                    {zone?.map((zones) => (
-                      <option key={zones.id} value={zones.id}>
-                        {zones.zone}
+                      <option disabled value="">Pick Load port</option>
+                    {zone?.map((zones,i) => (
+                      <option key={i} value={zones.id}>
+                        {zones.location} ( {zones.zoneID['zone']})  
                       </option>
                     ))}
                   </select>
                   <div className="error">
-                    {errors.zone && touched.zone && errors.zone}
+                    {errors.loadport && touched.loadport && errors.loadport}
                   </div>
             </div>
             <div className={`col-md-4 ${styles.selects}`}>
               <label>Discharge Port</label>
               <select
                     className="form-control"
-                    id="zone"
-                    name="zone"
-                    value={values.zone}
+                    id="dischargeport"
+                    name="dischargeport"
+                    value={values.dischargeport}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   >
-                    {zone?.map((zones) => (
-                      <option key={zones.id} value={zones.id}>
-                        {zones.zone}
+                      <option disabled value="">Pick Discharge port</option>
+                    {zone?.map((zones,i) => (
+                      <option key={i} value={zones.id}>
+                         {zones.location} ( {zones.zoneID['zone']})
                       </option>
                     ))}
                   </select>
                   <div className="error">
-                    {errors.zone && touched.zone && errors.zone}
+                    {errors.dischargeport && touched.dischargeport && errors.dischargeport}
                   </div>
             </div>
+
+            <button
+                    type="submit"
+                    className="btn btn-success form-control"
+                  >
+                generate price
+                  
+                  </button>
           </form>
         )}
         </Formik>
