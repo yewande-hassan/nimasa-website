@@ -50,7 +50,11 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
-    color: #FFFFFF;
+    color: #000;
+    }
+    .successBtn:hover{
+      color: #FFFFFF;
+      opacity: 0.9;
     }
     .btncolor {
       background: #f3f3f3;
