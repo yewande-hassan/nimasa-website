@@ -11,28 +11,37 @@ export default function Invoice() {
  const errorMessage = "Please enter correct information on"
 
  useEffect(()=>{
-     vesselService
-     .categoryVessel()
-     .then((res) => {
-        setCategory(res)
-     })
-     .catch((err) => {});
 
-     vesselService
-     .getAllGRT()
-     .then((res) => {
-       setGrt(res);
-     })
-     .catch((err) => {});
+const promise =[  vesselService.categoryVessel(), vesselService .getAllGRT(), vesselService.loadLocation()]
+
+  Promise.all(promise).then((res)=>{
+    console.log(res);
+    setCategory(res[0])
+    setGrt(res[1]);
+    setZone(res[2]);
+  }) .catch((err) => {});
+    //  vesselService
+    //  .categoryVessel()
+    //  .then((res) => {
+    //     setCategory(res)
+    //  })
+    //  .catch((err) => {});
+
+    //  vesselService
+    //  .getAllGRT()
+    //  .then((res) => {
+    //    setGrt(res);
+    //  })
+    //  .catch((err) => {});
 
 
 
-     vesselService
-     .loadLocation()
-     .then((res) => {
-       setZone(res);
-     })
-     .catch((err) => {});
+    //  vesselService
+    //  .loadLocation()
+    //  .then((res) => {
+    //    setZone(res);
+    //  })
+    //  .catch((err) => {});
  },[]);
 
 
