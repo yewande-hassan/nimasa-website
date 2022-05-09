@@ -89,6 +89,7 @@ function wait(delay){
 }
 
 function fetchRetry(url, delay, tries, fetchOptions = {}) {
+    var triesLeft = 5;
     function onError(err){
         triesLeft = tries - 1;
         if(!triesLeft){
