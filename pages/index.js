@@ -119,7 +119,7 @@ export default function Login() {
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-success form-control"
+                    className={`btn btn-success form-control ${styles.button}`}
                   >
                     SIGN IN{" "}
                     {isLoading && <Spinner variant="dark" animation="border" />}

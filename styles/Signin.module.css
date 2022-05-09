@@ -12,3 +12,11 @@
   font-size: 14px;
   line-height: 21px;
 }
+.button:hover{
+  background-color: white;
+  color: green;
+  box-shadow: 0 0.5em 0.5em -0.4em green;
+  transition: color 0.5s ease-in,background-color 0.5s ease-out, transform 0.5s ease-out;
+  transform: translateY(-0.2em);
+  cursor: pointer;
+}
