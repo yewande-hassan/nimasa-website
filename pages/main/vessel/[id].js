@@ -11,7 +11,7 @@ import Router from "next/router";
 
 import useSWR, { mutate } from "swr";
 import { Overlay } from "../../../component/common/ui/common";
-
+import Transaction from "../../../component/Reusable/transaction"
 
 import { vesselService } from "../../../services";
 
@@ -32,7 +32,7 @@ if (error) return `${error.message}`;
 if (!data) return <Overlay />;
 
 const handleRowClick = () => {
-  Router.push("/main/vessel/invoice");
+  Router.push("/main/vessel/invoice/"+id);
 };
 
   return (
@@ -109,36 +109,7 @@ const handleRowClick = () => {
         <section className={`col-7 `}>
 
           <h6 className={` my-2 ${styles.h6}`}>Transaction</h6>
-          <table className={` table table-borderless table-striped`}>
-            <thead >
-              <tr>
-                <th> ID</th>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Zone</th>
-                <th>Approved </th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody className={styles.tbody}>
-
-              {transaction.map((rows, index) => {
-                            return(
-                              <tr key={index} >
-                                 <td>{rows["TransactionId"]}</td>
-                                 <td>{rows["Category"]}</td>
-                                 <td>{rows["TotalAmount"]}</td>
-                                 <td>{rows["Location"]}</td>
-                                 <td >{rows["ApprovedBy"]}</td>
-                                 <td>{rows["Date"]}</td>
- 
-                               </tr>
-                              
-               
-                             )
-                           })}  
-            </tbody>
-          </table>
+         <Transaction id={id} />
         </section>
       </main>
     </>

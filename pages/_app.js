@@ -6,7 +6,8 @@ import { store } from "../Redux/store";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
  import { vesselService } from  '../services';
-
+ import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout || EmptyLayout;
@@ -55,6 +56,7 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <Layout>
           <Component {...pageProps} />
+          <ToastContainer />
         </Layout>
       </Provider>
     </>

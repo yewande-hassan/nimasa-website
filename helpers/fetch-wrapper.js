@@ -4,7 +4,7 @@ import { vesselService } from '../services';
 
 const { publicRuntimeConfig } = getConfig();
 
-
+const axios = require('axios');
 
 export const fetchWrapper = {
     get,
@@ -22,15 +22,16 @@ function get(url) {
 }
 
 function post(url, body) {
+    console.log(body)
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...authHeader(url) },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
 
         body: JSON.stringify({ ...body })
     };
 
-    return fetchRetry(url, requestOptions).then(handleResponse);
+    return axios.post(url,body)
 }
 
 function put(url, body) {

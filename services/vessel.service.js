@@ -21,7 +21,8 @@ export const vesselService = {
     addVessel,
     categoryVessel,
     loadPort,
-    loadLocation
+    loadLocation,
+    postQuest,getOneVesselTransaction
 };
 
 function login(username, password) {
@@ -69,4 +70,12 @@ function loadPort(){
 }
 function loadLocation(){
     return fetchWrapper.get(baseUrl+`location`)
+}
+
+function postQuest(baseurl,params){
+    return fetchWrapper.post(baseUrl+baseurl,params)
+}
+
+function getOneVesselTransaction(id){
+    return fetchWrapper.get(baseUrl+`transaction/vessel/${id}`)
 }
