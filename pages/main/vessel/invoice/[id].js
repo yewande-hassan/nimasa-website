@@ -61,6 +61,8 @@ export default function Invoice() {
               loadport: data.loadport,
               dischargeport: data.dischargeport,
             });
+          }else{
+            toast("Traffic is yet to be registered!");
           }
         })
         .catch((err) => {
